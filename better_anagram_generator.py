@@ -1,5 +1,5 @@
 import random
-random.seed(3)
+random.seed()
 
 wordsList = []
 with open("/usr/share/dict/words", 'r') as f:
