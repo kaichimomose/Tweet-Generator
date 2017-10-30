@@ -24,13 +24,13 @@ def histogram(source_text):
     '''Counter(dictionary)'''
     # histogram = Counter((word for word in new_word_list if word.isalpha() is True))
     '''dictionary'''
-    # histogram = {}
-    # for word in new_word_list:
-    #     if word.isalpha() is True:
-    #         if word not in histogram:
-    #             histogram[word] = 1
-    #         else:
-    #             histogram[word] += 1
+    histogram = {}
+    for word in new_word_list:
+        if word.isalpha() is True:
+            if word not in histogram:
+                histogram[word] = 1
+            else:
+                histogram[word] += 1
     '''list of lists'''
     # unique_words_list = []
     # histogram = []
@@ -60,39 +60,60 @@ def histogram(source_text):
     #                     list_tuple[1] += 1
     #                     histogram[i] = tuple(list_tuple)
     '''count'''
-    unique_words_list = []
-    histogram = []
-    for word in new_word_list:
-        if word.isalpha() is True:
-            if word not in unique_words_list:
-                unique_words_list.append(word)
-                number_word_list = [1, unique_words_list]
-            else:
-                pass
-                # for i in range(0, len(histogram)):
-                #     if word == histogram[i][0]:
-                #         list_tuple = list(histogram[i])
-                #         list_tuple[1] += 1
-                #         histogram[i] = tuple(list_tuple)
-    histogram.append(tuple(number_word_list))
+    apper_times = []
+    count = []
+    for word in histogram:
+        number = histogram[word]
+        if number not in apper_times:
+            apper_times.append(number)
+            number_list = (number, [word])
+            count.append(number_list)
+        else:
+            for index in count:
+                if number == index[0]:
+                    index[1].append(word)
+    histogram = sorted(count)
+    # apper_times = sorted(apper_times)
+    # for word in histogram:
+    #     number = histogram[word]
+    #     if number in apper_times:
+
+    # unique_words_list = []
+    # histogram = []
+    # for word in new_word_list:
+    #     if word.isalpha() is True:
+    #         if word not in unique_words_list:
+    #             unique_words_list.append(word)
+    #             number_word_list = [1, unique_words_list]
+    #         else:
+    #             pass
+    # histogram.append(tuple(number_word_list))
     print(histogram)
     return histogram
 
 
 def unique_words(histogram):
-    return len(histogram)
-
+    # return len(histogram)
+    '''count'''
+    number_of_unique_words = 0
+    for index in histogram:
+        number_of_unique_words += len(index[1])
+    return number_of_unique_words
 
 def frequency(word, histogram):
     '''list of lists'''
-    for i in range(0, len(histogram)):
-        if word == histogram[i][0]:
-            return histogram[i][1]
+    # for i in range(0, len(histogram)):
+    #     if word == histogram[i][0]:
+    #         return histogram[i][1]
     '''dictionary'''
-    if word in histogram:
-        return histogram[word]
-    else:
-        return 0
+    # if word in histogram:
+    #     return histogram[word]
+    # else:
+    #     return 0
+    '''count'''
+    for index in histogram:
+        if word in index[1]:
+            return index[0]
 
 
 # histogram1 = [('one', 1), ('fish', 1), ('two', 1), ('red', 1), ('blue', 1)]
