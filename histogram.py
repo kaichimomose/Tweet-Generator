@@ -89,9 +89,15 @@ def histogram(source_text):
     return histogram
 
 
-def read_easily(histogram):
+def logger_read_easily(histogram):
+    with open('histogram_entries.txt', 'w') as f:
+        # print('opened file 2:', self.file_name)
+        f.write("This is histogram entries\n")
+    '''dictionary'''
     for word in histogram:
-        print("%s %s" % (word, histogram[word]))
+        with open('histogram_entries.txt', 'a') as f:
+            # print('opened file 2:', self.file_name)
+            f.write("%s %s\n" % (word, histogram[word]))
 
 
 def unique_words(histogram):
@@ -128,7 +134,7 @@ def frequency(word, histogram):
 #         print(number)
 
 histogram = histogram("1661.txt")
-read_easily(histogram)
+logger_read_easily(histogram)
 unique_words = unique_words(histogram)
 frequency = frequency("dog", histogram)
 print("unique_words, frequency")
