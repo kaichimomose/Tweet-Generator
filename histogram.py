@@ -6,7 +6,7 @@ import random
 
 
 def dictionary(words_list):
-    """TODO: What it does, what input it takes, and what it returns."""
+    """TODO: create dictionary type histogram, inputs list of words, returns histogram."""
     histogram = {}
     for word in words_list:
         if word not in histogram:
@@ -17,7 +17,7 @@ def dictionary(words_list):
 
 
 def list_of_lists(words_list):
-    """TODO: What it does, what input it takes, and what it returns."""
+    """TODO: create list of lists type histogram, inputs list of words, returns histogram."""
     unique_words_list = []
     histogram = []
     for word in words_list:
@@ -35,6 +35,7 @@ def list_of_lists(words_list):
 
 
 def list_of_tuples(words_list):
+    """TODO: create list of tuples type histogram, inputs list of words, returns histogram."""
     '''creat list of tuples from the scratch'''
     # unique_words_list = []
     # histogram = []
@@ -59,7 +60,7 @@ def list_of_tuples(words_list):
 
 
 def list_counts(words_list):
-    """TODO: What it does, what input it takes, and what it returns."""
+    """TODO: create list of counts type histogram, inputs list of words, returns histogram."""
     histogram = dictionary(words_list)
     apper_times = []
     count = []
@@ -77,7 +78,7 @@ def list_counts(words_list):
 
 
 def clean_up_words_from_file(file_name):
-    """TODO: What it does, what input it takes, and what it returns."""
+    """TODO: make list of words from text, input file name, and returns list of words."""
     new_word_list = []
     with open(file_name, 'r') as f:
         word_list = f.read().split()
@@ -103,7 +104,7 @@ def clean_up_words_from_file(file_name):
 
 
 def make_histogram(file_name):
-    """TODO: What it does, what input it takes, and what it returns."""
+    """TODO: make list of word and histgram, input file name, and return histogram."""
     word_list = clean_up_words_from_file(file_name)
     '''Counter(dictionary)'''
     # histogram = Counter((word for word in word_list))
@@ -119,7 +120,7 @@ def make_histogram(file_name):
 
 
 def logger_read_easily(histogram):
-    """TODO: What it does, what input it takes, and what it returns."""
+    """TODO: create logger file and write tokens of each word"""
     with open('histogram_entries.txt', 'w') as f:
         f.write("This is histogram entries\n")
     '''dictionary'''
@@ -138,7 +139,7 @@ def logger_read_easily(histogram):
 
 
 def unique_words(histogram):
-    """TODO: What it does, what input it takes, and what it returns."""
+    """TODO: count number of unique words, input histogram, and return histogram."""
     # return len(histogram)
     '''list of counts'''
     number_of_unique_words = 0
@@ -154,7 +155,7 @@ def unique_words(histogram):
 
 
 def frequency(word, histogram):
-    """TODO: What it does, what input it takes, and what it returns."""
+    """TODO: return frequency of specific word, input word and histogram"""
     '''list of lists/tuples'''
     # for index in histogram:
     #     if word == index[0]:
