@@ -203,26 +203,25 @@ def probability(total_tokens, histogram):
     return probabilities
 
 
+def probability_of_word(word, total_tokens, histogram):
+    for count, words in histogram:
+        if word in words:
+            probability = count/total_tokens * 100
+    return probability
+
+
 def pick_word(histogram, probabilities):
     """TODO: What it does, what input it takes, and what it returns (if anything)."""
     random_number = random.random()
     for i in range(0, len(probabilities)):
-        if i == 0:
-            if random_number >= 0 and random_number < probabilities[i]:
-                random_number = random.randint(0, len(histogram[i][1]) - 1)
-                picked_word = histogram[i][1][random_number]
-                # probability = probabilities[i]/len(histogram[i][1])
-            else:
-                pass
+        if random_number < probabilities[i]:
+            random_number = random.randint(0, len(histogram[i][1]) - 1)
+            picked_word = histogram[i][1][random_number]
+            # probability = (probabilities[i] - probabilities[i-1])/len(histogram[i][1])
+            return picked_word
         else:
-            if random_number >= probabilities[i-1] and random_number < probabilities[i]:
-                random_number = random.randint(0, len(histogram[i][1]) - 1)
-                picked_word = histogram[i][1][random_number]
-                # probability = (probabilities[i] - probabilities[i-1])/len(histogram[i][1])
-            else:
-                pass
+            pass
         # print("%s, %s\%" % (picked_word, probability))
-    return picked_word
 
 
 def pick_many_words(histogram, probabilities, number_of_experiment):
@@ -240,6 +239,11 @@ def count_word(word_to_count, word_list):
         if word == word_to_count:
             count += 1
     print("count of {!r}: {}".format(word_to_count, count))
+    return count
+
+def probability_of_word_in_sample_list(word_to_count, count, number_of_experiment):
+    probability = count/number_of_experiment * 100
+    print("{!r} occupies {}%% of {} sample words".format(word_to_count, probability, number_of_experiment))
 
 
 def test_histogram(file_name, word):
@@ -262,6 +266,8 @@ def test_histogram(file_name, word):
     print("calculating probabilities...")
     total_tokens = count_total_tokens(histogram)
     probabilities = probability(total_tokens, histogram)
+    specific_probability = probability_of_word(word, total_tokens, histogram)
+    print("probability of {!r}: {}%%".format(word, specific_probability))
     # TODO: calculating this number based on histogram
     # num_words = 108283  # Sherlock Holmes
     num_words = 10000  # fish example
@@ -269,8 +275,9 @@ def test_histogram(file_name, word):
     word_list = pick_many_words(histogram, probabilities, num_words)
 
     # TODO: explain what the next 2 lines are doing
-    count_word(word, word_list)
+    count = count_word(word, word_list)
     # count_word("and", word_list)
+    probability_of_word_in_sample_list(word, count, num_words)
 
     sampling_time = time.time()
     elapsed_time = sampling_time - build_histogram_time
