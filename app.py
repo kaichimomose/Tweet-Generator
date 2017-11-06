@@ -30,3 +30,7 @@ def hello_world(number_of_words=10):
 #         else:
 #             sentence += " " + words_list[random_number]
 #     return(sentence)
+
+
+if __name__ == "__main__":
+    app.run()
