@@ -1,1 +1,1 @@
-web: tweet generator server -p $PORT
+web: python3 app.py
