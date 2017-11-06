@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route('/')
 def hello_world(number_of_words=10):
     # return 'Hello, World!'
-    with open("/usr/share/dict/words", 'r') as f:
+    with open("1661.txt", 'r') as f:
         words_list = f.read().split()
 
     sentence = ""
