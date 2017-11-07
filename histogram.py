@@ -270,9 +270,11 @@ def test_histogram(file_name, word):
     print("probability of {!r}: {}%%".format(word, specific_probability))
     # TODO: calculating this number based on histogram
     # num_words = 108283  # Sherlock Holmes
-    num_words = 10000  # fish example
+    num_words = 100  # fish example
     print("randomly sampling {} words...".format(num_words))
     word_list = pick_many_words(histogram, probabilities, num_words)
+
+    sentence = " ".join(word_list)
 
     # TODO: explain what the next 2 lines are doing
     count = count_word(word, word_list)
@@ -282,6 +284,7 @@ def test_histogram(file_name, word):
     sampling_time = time.time()
     elapsed_time = sampling_time - build_histogram_time
     print("elapsed time to sample words: {}".format(float(elapsed_time)))
+    return sentence
 
 
 if __name__ == "__main__":
