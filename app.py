@@ -1,14 +1,15 @@
-from flask import Flask
+from flask import Flask, render_template
 import histogram
 import random
 app = Flask(__name__)
-file_name = "1661.txt"
+file_name = "source-text/1661.txt"
 word = "the"
+
 
 @app.route('/')
 def generate_sentence():
     sentence = histogram.test_histogram(file_name, word)
-    return(sentence)
+    return render_template("home.html", something=sentence)
 
 # def random_sentence(number_of_words=10):
 #     with open("/usr/share/dict/words", 'r') as f:
@@ -25,4 +26,4 @@ def generate_sentence():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
