@@ -6,7 +6,7 @@ file_name = "1661.txt"
 word = "the"
 
 @app.route('/')
-def generate_sentence(file_name="1661.txt", word="the"):
+def generate_sentence():
     sentence = histogram.test_histogram(file_name, word)
     return(sentence)
 
