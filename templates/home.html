@@ -1,6 +1,7 @@
-<html>
-<body>
-<h1>Tweet Generator</h1>
-<p>{{something | safe}}</p>
-</body>
-</html>
+{% extends "layout.html" %}
+{% block content %}
+<div class='home'>
+    <h1>Tweet Generator</h1>
+        <p>{{something | safe}}</p>
+</div>
+{% endblock %}

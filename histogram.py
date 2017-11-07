@@ -233,7 +233,15 @@ def pick_many_words(histogram, probabilities, number_of_experiment):
     return picked_words
 
 
+def make_sentence(word_list):
+    """TODO: What it does, what input it takes, and what it returns (if anything)."""
+    sentence = " ".join(word_list)
+    sentence += "."
+    return sentence
+
+
 def count_word(word_to_count, word_list):
+    """TODO: What it does, what input it takes, and what it returns (if anything)."""
     count = 0
     for word in word_list:
         if word == word_to_count:
@@ -241,7 +249,9 @@ def count_word(word_to_count, word_list):
     print("count of {!r}: {}".format(word_to_count, count))
     return count
 
+
 def probability_of_word_in_sample_list(word_to_count, count, number_of_experiment):
+    """TODO: What it does, what input it takes, and what it returns (if anything)."""
     probability = count/number_of_experiment * 100
     print("{!r} occupies {}%% of {} sample words".format(word_to_count, probability, number_of_experiment))
 
@@ -274,7 +284,7 @@ def test_histogram(file_name, word):
     print("randomly sampling {} words...".format(num_words))
     word_list = pick_many_words(histogram, probabilities, num_words)
 
-    sentence = " ".join(word_list)
+    sentence = make_sentence(word_list)
 
     # TODO: explain what the next 2 lines are doing
     count = count_word(word, word_list)

@@ -11,6 +11,12 @@ def generate_sentence():
     sentence = histogram.test_histogram(file_name, word)
     return render_template("home.html", something=sentence)
 
+
+@app.route('/newsentence')
+def generate_new_sentence():
+    sentence = histogram.test_histogram(file_name, word)
+    return render_template("home.html", something=sentence)
+
 # def random_sentence(number_of_words=10):
 #     with open("/usr/share/dict/words", 'r') as f:
 #         words_list = f.read().split()
