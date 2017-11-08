@@ -176,7 +176,7 @@ def frequency(word, histogram):
 
 
 def count_total_tokens(histogram):
-    """TODO: What it does, what input it takes, and what it returns."""
+    """TODO: count total tokens, input histogram, and returns total tokens."""
     total_tokens = 0
     '''list of counts'''
     # for a_tuple in histogram:
@@ -307,5 +307,5 @@ if __name__ == "__main__":
         else:
             word = 'the'
     else:
-        file_name = "1661.txt"
+        file_name = "source-text/1661.txt"
     test_histogram(file_name, word)
