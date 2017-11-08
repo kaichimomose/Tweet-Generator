@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import histogram
 import random
 app = Flask(__name__)
@@ -8,27 +8,23 @@ word = "the"
 
 @app.route('/')
 def generate_sentence():
-    sentence = histogram.test_histogram(file_name, word)
+    number_of_words = request.args.get('num', default=1, type=int)
+    sentence = histogram.test_histogram(file_name, word, number_of_words)
     return render_template("home.html", something=sentence)
 
 
 @app.route('/newsentence')
 def generate_new_sentence():
-    sentence = histogram.test_histogram(file_name, word)
+    sentence = histogram.test_histogram(file_name, word, 100)
     return render_template("home.html", something=sentence)
 
-# def random_sentence(number_of_words=10):
-#     with open("/usr/share/dict/words", 'r') as f:
-#         words_list = f.read().split()
-#
-#     sentence = ""
-#     for _ in range(0, number_of_words):
-#         random_number = random.randint(0, len(words_list) - 1)
-#         if sentence == "":
-#             sentence = words_list[random_number]
-#         else:
-#             sentence += " " + words_list[random_number]
-#     return(sentence)
+# Url Decoding
+# import urlparse
+# url_params = "session_id=1234&input=Hello+World"
+# params_dict = urlparse.parse_qsl(url_params)
+# params = dict(params_dict)
+# print params
+# #  will print {"session_id":"1234","input":"Hello World"}
 
 
 if __name__ == "__main__":

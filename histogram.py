@@ -256,7 +256,7 @@ def probability_of_word_in_sample_list(word_to_count, count, number_of_experimen
     print("{!r} occupies {}%% of {} sample words".format(word_to_count, probability, number_of_experiment))
 
 
-def test_histogram(file_name, word):
+def test_histogram(file_name, word, num_words):
     start_time = time.time()
     histogram = make_histogram(file_name)
     logger_read_easily(histogram)
@@ -280,7 +280,7 @@ def test_histogram(file_name, word):
     print("probability of {!r}: {}%%".format(word, specific_probability))
     # TODO: calculating this number based on histogram
     # num_words = 108283  # Sherlock Holmes
-    num_words = 100  # fish example
+    # num_words = 100  # fish example
     print("randomly sampling {} words...".format(num_words))
     word_list = pick_many_words(histogram, probabilities, num_words)
 
