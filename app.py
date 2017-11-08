@@ -8,7 +8,7 @@ word = "the"
 
 @app.route('/')
 def generate_sentence():
-    number_of_words = request.args.get('num', default=1, type=int)
+    number_of_words = request.args.get('num', default=10, type=int)
     sentence = histogram.test_histogram(file_name, word, number_of_words)
     return render_template("home.html", something=sentence)
 

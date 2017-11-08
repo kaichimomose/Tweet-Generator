@@ -82,17 +82,17 @@ def clean_up_words_from_file(file_name):
     new_word_list = []
     with open(file_name, 'r') as f:
         word_list = f.read().split()
-    for word in word_list:
-        if "--" in word:
-            word_list.remove(word)
-            word = word.split('--')
-            for a_word in word:
-                word_list.append(a_word)
-        elif "-" in word:
-            word_list.remove(word)
-            word = word.split('-')
-            for a_word in word:
-                word_list.append(a_word)
+    # for word in word_list:
+    #     if "--" in word:
+    #         word_list.remove(word)
+    #         word = word.split('--')
+    #         for a_word in word:
+    #             word_list.append(a_word)
+    #     elif "-" in word:
+    #         word_list.remove(word)
+    #         word = word.split('-')
+    #         for a_word in word:
+    #             word_list.append(a_word)
     for word in word_list:
         clean_word = ''
         for c in word:
@@ -187,8 +187,9 @@ def count_total_tokens(histogram):
     return total_tokens
 
 
-def probability(total_tokens, histogram):
+def probability(histogram):
     """TODO: What it does, what input it takes, and what it returns."""
+    total_tokens = count_total_tokens(histogram)
     tokens = []
     # for a_tuple in histogram:
     #     tokens.append(a_tuple[0] * len(a_tuple[1]))
@@ -203,15 +204,17 @@ def probability(total_tokens, histogram):
     return probabilities
 
 
-def probability_of_word(word, total_tokens, histogram):
+def probability_of_word(word, histogram):
+    total_tokens = count_total_tokens(histogram)
     for count, words in histogram:
         if word in words:
             probability = count/total_tokens * 100
     return probability
 
 
-def pick_word(histogram, probabilities):
+def pick_word(histogram):
     """TODO: What it does, what input it takes, and what it returns (if anything)."""
+    probabilities = probability(histogram)
     random_number = random.random()
     for i in range(0, len(probabilities)):
         if random_number < probabilities[i]:
@@ -224,11 +227,11 @@ def pick_word(histogram, probabilities):
         # print("%s, %s\%" % (picked_word, probability))
 
 
-def pick_many_words(histogram, probabilities, number_of_experiment):
+def pick_many_words(histogram, number_of_experiment):
     """TODO: What it does, what input it takes, and what it returns (if anything)."""
     picked_words = []
     for _ in range(0, number_of_experiment):
-        picked_word = pick_word(histogram, probabilities)
+        picked_word = pick_word(histogram)
         picked_words.append(picked_word)
     return picked_words
 
@@ -250,8 +253,9 @@ def count_word(word_to_count, word_list):
     return count
 
 
-def probability_of_word_in_sample_list(word_to_count, count, number_of_experiment):
+def probability_of_word_in_sample_list(word_to_count, word_list, number_of_experiment):
     """TODO: What it does, what input it takes, and what it returns (if anything)."""
+    count = count_word(word_to_count, word_list)
     probability = count/number_of_experiment * 100
     print("{!r} occupies {}%% of {} sample words".format(word_to_count, probability, number_of_experiment))
 
@@ -274,26 +278,23 @@ def test_histogram(file_name, word, num_words):
 
     # TODO: explain what the next 3 lines are doing
     print("calculating probabilities...")
-    total_tokens = count_total_tokens(histogram)
-    probabilities = probability(total_tokens, histogram)
-    specific_probability = probability_of_word(word, total_tokens, histogram)
+    specific_probability = probability_of_word(word, histogram)
     print("probability of {!r}: {}%%".format(word, specific_probability))
+
     # TODO: calculating this number based on histogram
     # num_words = 108283  # Sherlock Holmes
     # num_words = 100  # fish example
     print("randomly sampling {} words...".format(num_words))
-    word_list = pick_many_words(histogram, probabilities, num_words)
-
-    sentence = make_sentence(word_list)
+    word_list = pick_many_words(histogram, num_words)
 
     # TODO: explain what the next 2 lines are doing
-    count = count_word(word, word_list)
-    # count_word("and", word_list)
-    probability_of_word_in_sample_list(word, count, num_words)
+    probability_of_word_in_sample_list(word, word_list, num_words)
 
     sampling_time = time.time()
     elapsed_time = sampling_time - build_histogram_time
     print("elapsed time to sample words: {}".format(float(elapsed_time)))
+
+    sentence = make_sentence(word_list)
     return sentence
 
 
