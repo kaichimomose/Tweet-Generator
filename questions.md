@@ -13,3 +13,9 @@
 
 5. Are there functions that could be better organized in an Object-Oriented Programming style by defining them as methods of a class?
     - yes, histogram
+
+6. Can files be used as both modules and as scripts?
+    - yes, 
+
+7. Do modules all depend on each other or can they be used independently?
+    - yes, but it depends

@@ -24,11 +24,9 @@ class Listogram(list):
             self.append((word, count))
             self.types += 1
         else:
-            for index in range(0, len(self)):
-                if word == self[index][0]:
-                    list_tuple = list(self[index])
-                    list_tuple[1] += count
-                    self[index] = tuple(list_tuple)
+            index = self._index(word)
+            frequency = self[index][1] + count
+            self[index] = (word, frequency)
         self.tokens += count
 
     def frequency(self, word):
@@ -51,8 +49,8 @@ class Listogram(list):
         """Return the index of entry containing given target word if found in
         this histogram, or None if target word is not found."""
         # TODO: Implement linear search to find index of entry with target word
-        for index, word in enumerate(self):
-            if word == target:
+        for index, word in list(enumerate(self)):
+            if word[0] == target:
                 return index
         return None
 
