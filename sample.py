@@ -40,7 +40,3 @@ def pick_many_words(total_tokens, histogram, number_of_experiment):
         picked_word = pick_word(total_tokens, histogram)
         picked_words.append(picked_word)
     return picked_words
-
-
-if __name__ == "__main__":
-    
