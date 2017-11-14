@@ -114,13 +114,13 @@ def make_histogram(file_name):
     '''Counter(dictionary)'''
     # histogram = Counter((word for word in word_list))
     '''dictionary'''
-    # histogram = dictionary(word_list)
+    histogram = dictionary(word_list)
     '''list of lists'''
     # histogram = list_of_lists(word_list)
     '''list of tuples'''
     # histogram = list_of_tuples(word_list)
     '''list of counts'''
-    histogram = list_counts(word_list)
+    # histogram = list_counts(word_list)
     '''Dictogram'''
     # histogram = Dictogram(word_list)
     return histogram
@@ -131,34 +131,34 @@ def logger_read_easily(histogram):
     with open('histogram_entries.txt', 'w') as f:
         f.write("This is histogram entries\n")
     '''dictionary'''
-    # for word in histogram:
-    #     with open('histogram_entries.txt', 'a') as f:
-    #         f.write("%s %s\n" % (word, histogram[word]))
+    for word in histogram:
+        with open('histogram_entries.txt', 'a') as f:
+            f.write("%s %s\n" % (word, histogram[word]))
     '''list of lists/tuples'''
     # for index in histogram:
     #     with open('histogram_entries.txt', 'a') as f:
     #         f.write("%s %s\n" % (index[0], index[1]))
     '''list of counts'''
-    for index in histogram:
-        for word in index[1]:
-            with open('histogram_entries.txt', 'a') as f:
-                f.write("%s %s\n" % (word, index[0]))
+    # for index in histogram:
+    #     for word in index[1]:
+    #         with open('histogram_entries.txt', 'a') as f:
+    #             f.write("%s %s\n" % (word, index[0]))
 
 
 def unique_words(histogram):
     """TODO: count number of unique words, input histogram, and return histogram."""
-    # return len(histogram)
+    return len(histogram)
     '''list of counts'''
-    number_of_unique_words = 0
-    # for count_tuple in histogram:
-    #     count = count_tuple[0]
-    #     words = count_tuple[1]
-    #     # Alternative to above 2 lines
-    #     count, words = count_tuple
-    # Alternative to above for loop
-    for count, words in histogram:
-        number_of_unique_words += len(words)
-    return number_of_unique_words
+    # number_of_unique_words = 0
+    # # for count_tuple in histogram:
+    # #     count = count_tuple[0]
+    # #     words = count_tuple[1]
+    # #     # Alternative to above 2 lines
+    # #     count, words = count_tuple
+    # # Alternative to above for loop
+    # for count, words in histogram:
+    #     number_of_unique_words += len(words)
+    # return number_of_unique_words
 
 
 def frequency(word, histogram):
@@ -168,29 +168,39 @@ def frequency(word, histogram):
     #     if word == index[0]:
     #         return index[1]
     '''dictionary'''
-    # if word in histogram:
-    #     return histogram[word]
-    # else:
-    #     return 0
+    if word in histogram:
+        return histogram[word]
+    else:
+        return 0
     '''list of counts'''
-    # for index in histogram:
-    #     if word in index[1]:
-    #         return index[0]
-    # Alternative to above for loop
-    for count, words in histogram:
-        if word in words:
-            return count
+    # # for index in histogram:
+    # #     if word in index[1]:
+    # #         return index[0]
+    # # Alternative to above for loop
+    # for count, words in histogram:
+    #     if word in words:
+    #         return count
 
 
 def count_total_tokens(histogram):
     """TODO: count total tokens, input histogram, and returns total tokens."""
     total_tokens = 0
+    '''list of lists'''
+    # for list in histogram:
+    #     total_tokens += list[1]
+    '''list of tuples'''
+    # for word, frequency in histogram:
+    #     total_tokens += frequency
+    '''dictionary'''
+    for word in histogram:
+        total_tokens += histogram[word]
     '''list of counts'''
-    # for a_tuple in histogram:
-    #     total_tokens += a_tuple[0] * len(a_tuple[1])
-    # Alternative to above for loop
-    for count, words in histogram:
-        total_tokens += count * len(words)
+    # # for a_tuple in histogram:
+    # #     total_tokens += a_tuple[0] * len(a_tuple[1])
+    # # Alternative to above for loop
+    # for count, words in histogram:
+    #     total_tokens += count * len(words)
+
     return total_tokens
 
 
@@ -198,40 +208,85 @@ def probability(histogram):
     """TODO: What it does, what input it takes, and what it returns."""
     total_tokens = count_total_tokens(histogram)
     tokens = []
-    # for a_tuple in histogram:
-    #     tokens.append(a_tuple[0] * len(a_tuple[1]))
-    # Alternative to above for loop
-    for count, words in histogram:
-        tokens.append(count * len(words))
-    probabilities = []
+    '''list of lists'''
+    # for list in histogram:
+    #     tokens.append(list[1])
+    '''list of tuples'''
+    # for word, frequency in histogram:
+    #     tokens.append(frequency)
+    '''list of counts'''
+    # # for a_tuple in histogram:
+    # #     tokens.append(a_tuple[0] * len(a_tuple[1]))
+    # # Alternative to above for loop
+    # for count, words in histogram:
+    #     tokens.append(count * len(words))
+
+    # probabilities = []
+    # sum_probabilities = 0
+    # for number in tokens:
+    #     sum_probabilities += number/total_tokens
+    #     probabilities.append(sum_probabilities)
+
+    '''dictionary'''
+    probabilities = {}
     sum_probabilities = 0
-    for number in tokens:
-        sum_probabilities += number/total_tokens
-        probabilities.append(sum_probabilities)
+    for word in histogram:
+        sum_probabilities += histogram[word]/total_tokens
+        probabilities[sum_probabilities] = word
+
     return probabilities
 
 
 def probability_of_word(word, histogram):
     total_tokens = count_total_tokens(histogram)
-    for count, words in histogram:
-        if word in words:
-            probability = count/total_tokens * 100
+    '''list of lists'''
+    # for list in histogram:
+    #     if word in list:
+    #         probability = list[1]/total_tokens * 100
+    '''list of tuples'''
+    # for a_word, frequency in histogram:
+    #     if word == a_word:
+    #         probability = frequency/total_tokens * 100
+    '''dictionary'''
+    for a_word in histogram:
+        if word == a_word:
+            probability = histogram[a_word]/total_tokens * 100
+    '''list of counts'''
+    # for count, words in histogram:
+    #     if word in words:
+    #         probability = count/total_tokens * 100
+
     return probability
 
 
+'''dictionary'''
 def pick_word(histogram):
-    """TODO: What it does, what input it takes, and what it returns (if anything)."""
     probabilities = probability(histogram)
     random_number = random.random()
-    for i in range(0, len(probabilities)):
-        if random_number < probabilities[i]:
-            random_number = random.randint(0, len(histogram[i][1]) - 1)
-            picked_word = histogram[i][1][random_number]
-            # probability = (probabilities[i] - probabilities[i-1])/len(histogram[i][1])
+    for a_probability in probabilities:
+        if random_number < a_probability:
+            picked_word = probabilities[a_probability]
             return picked_word
         else:
             pass
-        # print("%s, %s\%" % (picked_word, probability))
+
+
+# def pick_word(histogram):
+#     """TODO: What it does, what input it takes, and what it returns (if anything)."""
+#     probabilities = probability(histogram)
+#     random_number = random.random()
+#     for i in range(0, len(probabilities)):
+#         if random_number < probabilities[i]:
+#             '''list of lists/tuples'''
+#             picked_word = histogram[i][0]
+#             '''list of counts'''
+#             # random_number = random.randint(0, len(histogram[i][1]) - 1)
+#             # picked_word = histogram[i][1][random_number]
+#
+#             return picked_word
+#         else:
+#             pass
+#         # print("%s, %s\%" % (picked_word, probability))
 
 
 def pick_many_words(histogram, number_of_experiment):
@@ -283,26 +338,27 @@ def test_histogram(file_name, word="the", num_words=1):
     elapsed_time = build_histogram_time - start_time
     print("elapsed time to build histogram: {}".format(float(elapsed_time)))
 
-    # # TODO: explain what the next 3 lines are doing
-    # print("calculating probabilities...")
-    # specific_probability = probability_of_word(word, histogram)
-    # print("probability of {!r}: {}%%".format(word, specific_probability))
-    #
-    # # TODO: calculating this number based on histogram
-    # # num_words = 108283  # Sherlock Holmes
-    # # num_words = 100  # fish example
-    # print("randomly sampling {} words...".format(num_words))
-    # word_list = pick_many_words(histogram, num_words)
-    #
-    # # TODO: explain what the next 2 lines are doing
-    # probability_of_word_in_sample_list(word, word_list, num_words)
-    #
-    # sampling_time = time.time()
-    # elapsed_time = sampling_time - build_histogram_time
-    # print("elapsed time to sample words: {}".format(float(elapsed_time)))
-    #
-    # sentence = make_sentence(word_list)
-    # return sentence
+    # TODO: explain what the next 3 lines are doing
+    print("calculating probabilities...")
+    specific_probability = probability_of_word(word, histogram)
+    print("probability of {!r}: {}%%".format(word, specific_probability))
+
+    # TODO: calculating this number based on histogram
+    # num_words = 108283  # Sherlock Holmes
+    # num_words = 100  # fish example
+    print("randomly sampling {} words...".format(num_words))
+    word_list = pick_many_words(histogram, num_words)
+
+    # TODO: explain what the next 2 lines are doing
+    probability_of_word_in_sample_list(word, word_list, num_words)
+
+    sampling_time = time.time()
+    elapsed_time = sampling_time - build_histogram_time
+    print("elapsed time to sample words: {}".format(float(elapsed_time)))
+
+    sentence = make_sentence(word_list)
+    print(sentence)
+    return sentence
 
 
 if __name__ == "__main__":
@@ -312,8 +368,12 @@ if __name__ == "__main__":
         file_name = arguments[0]
         if len(arguments) >= 2:
             word = arguments[1]
+            if len(arguments) >= 3:
+                number_of_words = int(arguments[2])
+            else:
+                number_of_words = 1
         else:
             word = 'the'
     else:
         file_name = "source-text/1661.txt"
-    test_histogram(file_name)
+    test_histogram(file_name, word, number_of_words)
