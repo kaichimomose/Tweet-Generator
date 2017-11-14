@@ -27,9 +27,11 @@ def list_of_lists(words_list):
             unique_words_list.append(word)
             histogram.append(unique_word)
         else:
-            for list in histogram:
-                if word == list[0]:
-                    list[1] += 1
+            number = unique_words_list.index(word)
+            histogram[number][1] += 1
+            # for list in histogram:
+            #     if word == list[0]:
+            #         list[1] += 1
     # sort list numerical order
     histogram.sort(key=lambda x: x[1])
     return histogram
@@ -38,43 +40,45 @@ def list_of_lists(words_list):
 def list_of_tuples(words_list):
     """TODO: create list of tuples type histogram, inputs list of words, returns histogram."""
     '''creat list of tuples from the scratch'''
-    # unique_words_list = []
-    # histogram = []
-    # for word in words_list:
-    #     if word not in unique_words_list:
-    #         unique_word = word, 1
-    #         unique_words_list.append(word)
-    #         histogram.append(unique_word)
-    #     else:
-    #         for i in range(0, len(histogram)):
-    #             if word == histogram[i][0]:
-    #                 list_tuple = list(histogram[i])
-    #                 list_tuple[1] += 1
-    #                 histogram[i] = tuple(list_tuple)
-    # # sort list numerical order
-    # histogram.sort(key=lambda x: x[1])
-    '''use list of lists to create list of tuples'''
-    histogram = list_of_lists(words_list)
-    for i in range(0, len(histogram)):
-        histogram[i] = tuple(histogram[i])
+    unique_words_list = []
+    histogram = []
+    for word in words_list:
+        if word not in unique_words_list:
+            unique_word = word, 1
+            unique_words_list.append(word)
+            histogram.append(unique_word)
+        else:
+            number = unique_words_list.index(word)
+            list_tuple = list(histogram[number])
+            list_tuple[1] += 1
+            histogram[number] = tuple(list_tuple)
+            # for i in range(0, len(histogram)):
+            #     if word == histogram[i][0]:
+            #         list_tuple = list(histogram[i])
+            #         list_tuple[1] += 1
+            #         histogram[i] = tuple(list_tuple)
+    # sort list numerical order
+    histogram.sort(key=lambda x: x[1])
     return histogram
 
 
 def list_counts(words_list):
     """TODO: create list of counts type histogram, inputs list of words, returns histogram."""
     histogram = dictionary(words_list)
-    apper_times = []
+    frequencies = []
     count = []
     for word in histogram:
-        number = histogram[word]
-        if number not in apper_times:
-            apper_times.append(number)
-            number_list = (number, [word])
-            count.append(number_list)
+        frequency = histogram[word]
+        if frequency not in frequencies:
+            frequencies.append(frequency)
+            frequency_list = (frequency, [word])
+            count.append(frequency_list)
         else:
-            for index in count:
-                if number == index[0]:
-                    index[1].append(word)
+            number = frequencies.index(frequency)
+            count[number][1].append(word)
+            # for number, words in count:
+            #     if frequency == number:
+            #         words.append(word)
     return sorted(count)
 
 
@@ -116,9 +120,9 @@ def make_histogram(file_name):
     '''list of tuples'''
     # histogram = list_of_tuples(word_list)
     '''list of counts'''
-    # histogram = list_counts(word_list)
+    histogram = list_counts(word_list)
     '''Dictogram'''
-    histogram = Dictogram(word_list)
+    # histogram = Dictogram(word_list)
     return histogram
 
 
@@ -143,18 +147,18 @@ def logger_read_easily(histogram):
 
 def unique_words(histogram):
     """TODO: count number of unique words, input histogram, and return histogram."""
-    return len(histogram)
+    # return len(histogram)
     '''list of counts'''
-    # number_of_unique_words = 0
-    # # for count_tuple in histogram:
-    # #     count = count_tuple[0]
-    # #     words = count_tuple[1]
-    # #     # Alternative to above 2 lines
-    # #     count, words = count_tuple
-    # # Alternative to above for loop
-    # for count, words in histogram:
-    #     number_of_unique_words += len(words)
-    # return number_of_unique_words
+    number_of_unique_words = 0
+    # for count_tuple in histogram:
+    #     count = count_tuple[0]
+    #     words = count_tuple[1]
+    #     # Alternative to above 2 lines
+    #     count, words = count_tuple
+    # Alternative to above for loop
+    for count, words in histogram:
+        number_of_unique_words += len(words)
+    return number_of_unique_words
 
 
 def frequency(word, histogram):
@@ -164,18 +168,18 @@ def frequency(word, histogram):
     #     if word == index[0]:
     #         return index[1]
     '''dictionary'''
-    if word in histogram:
-        return histogram[word]
-    else:
-        return 0
+    # if word in histogram:
+    #     return histogram[word]
+    # else:
+    #     return 0
     '''list of counts'''
-    # # for index in histogram:
-    # #     if word in index[1]:
-    # #         return index[0]
-    # # Alternative to above for loop
-    # for count, words in histogram:
-    #     if word in words:
-    #         return count
+    # for index in histogram:
+    #     if word in index[1]:
+    #         return index[0]
+    # Alternative to above for loop
+    for count, words in histogram:
+        if word in words:
+            return count
 
 
 def count_total_tokens(histogram):
@@ -266,7 +270,7 @@ def probability_of_word_in_sample_list(word_to_count, word_list, number_of_exper
 def test_histogram(file_name, word="the", num_words=1):
     start_time = time.time()
     histogram = make_histogram(file_name)
-    # logger_read_easily(histogram)
+    logger_read_easily(histogram)
     print('histogram:', histogram)
 
     # TODO: explain what the next 4 lines are doing

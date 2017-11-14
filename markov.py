@@ -6,6 +6,7 @@ import random
 
 
 class Markov(object):
+
     def __init__(self, word_list):
         self.states = self.create_states(word_list)
         self.states_lists_of_counts = self.create_states_lists_counts()
@@ -60,7 +61,6 @@ class Markov(object):
                 if random_number < probabilities[i]:
                     random_number = random.randint(0, len(self.states_lists_of_counts[word][i][1]) - 1)
                     picked_word = self.states_lists_of_counts[word][i][1][random_number]
-                    # probability = (probabilities[i] - probabilities[i-1])/len(histogram[i][1])
                     return picked_word
                 else:
                     pass
