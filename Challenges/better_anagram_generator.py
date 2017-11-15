@@ -32,6 +32,7 @@ def anagram_generator():
             print(original)
             break
         else:
+            git 
             anagram_find = False
     return anagram
 

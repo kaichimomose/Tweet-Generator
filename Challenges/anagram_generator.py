@@ -1,4 +1,5 @@
 import random
+import math
 random.seed(1)
 
 wordsList = []
@@ -16,20 +17,22 @@ def anagram_generator():
     original = selected_word
     number_of_characters = len(selected_word)
     anagram = ""
-    while find is False:
-        selected_word = original
-        anagram = ""
-        for i in range(0, number_of_characters):
-            number = random.randint(0, len(selected_word) - 1)
-            character = selected_word[number]
-            anagram += character
-            selected_word = selected_word[:number] + selected_word[number + 1:]
-        if anagram != original:
-            find = True
-        else:
-            find = False
-    print(original)
-    return anagram
+    number_of_cases = math.factorial(number_of_characters-1)
+    # while find is False:
+    #     selected_word = original
+    #     anagram = ""
+    #     for i in range(0, number_of_characters):
+    #         number = random.randint(0, len(selected_word) - 1)
+    #         character = selected_word[number]
+    #         anagram += character
+    #         selected_word = selected_word[:number] + selected_word[number + 1:]
+    #     if anagram != original:
+    #         find = True
+    #     else:
+    #         find = False
+
+    print(number_of_cases)
+    return selected_word
 
 if __name__ == '__main__':
     anagram = anagram_generator()
