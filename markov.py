@@ -12,7 +12,7 @@ class Markov(object):
         self.states_lists_of_counts = self.create_states_lists_counts()
 
     def check_word_after_word(self, word_list):
-        ''''''
+        '''take word list, check word after word and create dictionary {word: [words after word]} '''
         word_after_dict = {}
         for i in range(-1, len(word_list)):
             #
@@ -34,25 +34,32 @@ class Markov(object):
         return word_after_dict
 
     def create_states(self, word_list):
+        '''convert list of words after word to histogram of words after word {word: {word after word: tokens}}'''
         word_after_dict = self.check_word_after_word(word_list)
+        print(word_after_dict)
         states = {}
         for word in word_after_dict:
             states[word] = Dictogram(word_after_dict[word])
+        print(states)
         return states
 
     def create_states_lists_counts(self):
+        '''convert dictionary type of histogram to list of counts type of histogram {word: [(count, [words after word])]}'''
         states_lists_of_counts = {}
         for word in self.states:
             states_lists_of_counts[word] = list_counts.make_list_counts(self.states[word])
+        print(states_lists_of_counts)
         return states_lists_of_counts
 
     def calculate_probabilities_dict(self):
+        '''calculate probability of each word in each histogram'''
         probabilities_dict = {}
         for word in self.states_lists_of_counts:
             probabilities_dict[word] = sample.probability(self.states[word].tokens, self.states_lists_of_counts[word])
         return probabilities_dict
 
     def pick_word(self, word):
+        '''pick one word that is after input word based on probabilities'''
         probabilities_dict = self.calculate_probabilities_dict()
         if word in probabilities_dict:
             probabilities = probabilities_dict[word]
@@ -66,6 +73,7 @@ class Markov(object):
                     pass
 
     def pick_many_words(self, number_of_words):
+        '''pick number_of_words words and return list of words, initial word is 'START' and stop picking words when picking 'STOP' '''
         picked_words = []
         word = "START"
         for _ in range(0, number_of_words):
