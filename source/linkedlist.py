@@ -34,11 +34,14 @@ class LinkedList(object):
         return 'LinkedList({!r})'.format(self.items())
 
     def __iter__(self):
+        self.node = self.head
         return self
 
     def __next__(self):
-        if self.node.next is not None:
-            return self.node.next
+        if self.node is not None:
+            node = self.node
+            self.node = self.node.next
+            return node
         else:
             raise StopIteration
 
@@ -48,13 +51,15 @@ class LinkedList(object):
         because we always need to loop through all n nodes to get each item."""
         items = []  # O(1) time to create empty list
         # Start at head node
-        node = self.head  # O(1) time to assign new variable
-        # Loop until node is None, which is one node too far past tail
-        while node is not None:  # Always n iterations because no early return
-            items.append(node.data)  # O(1) time (on average) to append to list
-            # Skip to next node to advance forward in linked list
-            node = node.next  # O(1) time to reassign variable
+        # node = self.head  # O(1) time to assign new variable
+        # # Loop until node is None, which is one node too far past tail
+        # while node is not None:  # Always n iterations because no early return
+        #     items.append(node.data)  # O(1) time (on average) to append to list
+        #     # Skip to next node to advance forward in linked list
+        #     node = node.next  # O(1) time to reassign variable
         # Now list contains items from all nodes
+        for node in self:
+            items.append(node.data)
         return items  # O(1) time to return list
 
     def is_empty(self):
@@ -66,12 +71,14 @@ class LinkedList(object):
         TODO: Running time: O(n) Why and under what conditions?"""
         # TODO: Loop through all nodes and count one for each
         length = 0
-        node = self.head  # O(1) time to assign new variable
-        # Loop until node is None, which is one node too far past tail
-        while node is not None:  # Always n iterations because no early return
+        # node = self.head  # O(1) time to assign new variable
+        # # Loop until node is None, which is one node too far past tail
+        # while node is not None:  # Always n iterations because no early return
+        #     length += 1
+        #     node = node.next  # O(1) time to reassign variable
+        # # Now list contains items from all nodes
+        for _ in self:
             length += 1
-            node = node.next  # O(1) time to reassign variable
-        # Now list contains items from all nodes
         return length  # O(1) time to return list
 
     def append(self, item):
@@ -106,16 +113,19 @@ class LinkedList(object):
         TODO: Worst case running time: O(???) Why and under what conditions?"""
         # TODO: Loop through all nodes to find item where quality(item) is True
         # TODO: Check if node's data satisfies given quality function
-        node = self.head  # O(1) time to assign new variable
-        item = None
-        # f = quality
-        # Loop until node is None, which is one node too far past tail
-        while node is not None:  # Always n iterations because no early return
+        # node = self.head  # O(1) time to assign new variable
+        # item = None
+        # # Loop until node is None, which is one node too far past tail
+        # while node is not None:  # Always n iterations because no early return
+        #     if quality(node.data):
+        #         item = node.data
+        #         return item
+        #     else:
+        #         node = node.next
+        for node in self:
             if quality(node.data):
                 item = node.data
                 return item
-            else:
-                node = node.next
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
@@ -132,7 +142,26 @@ class LinkedList(object):
         if find_item is None:
             raise ValueError('Item not found: {}'.format(item))
         else:
-            while node is not None:  # Always n iterations because no early return
+            # while node is not None:  # Always n iterations because no early return
+            #     if node == self.head:
+            #         if node.data == item:
+            #             self.head = node.next
+            #             if node == self.tail:
+            #                 self.tail = previous_node
+            #             break
+            #         else:
+            #             previous_node = node
+            #             node = node.next
+            #     else:
+            #         if node.data == item:
+            #             previous_node.next = node.next
+            #             if node == self.tail:
+            #                 self.tail = previous_node
+            #             break
+            #         else:
+            #             previous_node = node
+            #             node = node.next
+            for node in self:
                 if node == self.head:
                     if node.data == item:
                         self.head = node.next
@@ -141,7 +170,6 @@ class LinkedList(object):
                         break
                     else:
                         previous_node = node
-                        node = node.next
                 else:
                     if node.data == item:
                         previous_node.next = node.next
@@ -150,7 +178,6 @@ class LinkedList(object):
                         break
                     else:
                         previous_node = node
-                        node = node.next
 
     def replace(self, item, new_item):
         """Find a node whose data is item and replace it new item"""
@@ -159,12 +186,16 @@ class LinkedList(object):
         if find_item is None:
             raise ValueError('Item not found: {}'.format(item))
         else:
-            while node is not None:
+            # while node is not None:
+            #     if node.data == item:
+            #         node.data = new_item
+            #         break
+            #     else:
+            #         node = node.next
+            for node in self:
                 if node.data == item:
                     node.data = new_item
                     break
-                else:
-                    node = node.next
 
 
 def test_linked_list():
