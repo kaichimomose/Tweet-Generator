@@ -33,8 +33,7 @@ class LinkedList(object):
         """Return a string representation of this linked list."""
         return 'LinkedList({!r})'.format(self.items())
 
-    def __iter__(self, node):
-        self.node = node
+    def __iter__(self):
         return self
 
     def __next__(self):
@@ -49,15 +48,13 @@ class LinkedList(object):
         because we always need to loop through all n nodes to get each item."""
         items = []  # O(1) time to create empty list
         # Start at head node
-            # node = self.head  # O(1) time to assign new variable
-            # # Loop until node is None, which is one node too far past tail
-            # while node is not None:  # Always n iterations because no early return
-            #     items.append(node.data)  # O(1) time (on average) to append to list
-            #     # Skip to next node to advance forward in linked list
-            #     node = node.next  # O(1) time to reassign variable
-            # # Now list contains items from all nodes
-        for node in self.node:
-            items.append(node.data)
+        node = self.head  # O(1) time to assign new variable
+        # Loop until node is None, which is one node too far past tail
+        while node is not None:  # Always n iterations because no early return
+            items.append(node.data)  # O(1) time (on average) to append to list
+            # Skip to next node to advance forward in linked list
+            node = node.next  # O(1) time to reassign variable
+        # Now list contains items from all nodes
         return items  # O(1) time to return list
 
     def is_empty(self):
