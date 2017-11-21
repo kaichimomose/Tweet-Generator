@@ -8,7 +8,7 @@ class DoublyLinkedList(LinkedList):
 
     def __str__(self):
         """Return a formatted string representation of this linked list."""
-        items = ['({!r})'.format(item) for item in self.items() for ]
+        items = ['({!r})'.format(item) for item in self.items()]
         return '[{}]'.format(' -> '.join(items))
 
     def append(self, item):
@@ -24,6 +24,16 @@ class DoublyLinkedList(LinkedList):
         else:
             self.tail.next = node
             self.tail = node
+
+    def length(self):
+        columns = len(self.items())
+        rows = 0
+        for node in self:
+            linkedlist = node.data
+            row = len(linkedlist.items())
+            if row > rows:
+                rows = row
+        return '{} by {} matrix'.format(rows, columns)
 
 
 def test_doubly_linked_list():
