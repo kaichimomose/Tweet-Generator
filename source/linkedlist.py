@@ -33,13 +33,17 @@ class LinkedList(object):
         """Return a string representation of this linked list."""
         return 'LinkedList({!r})'.format(self.items())
 
+    # Build an iterator from scratch with __iter__() and __next__()
     def __iter__(self):
+        """Return the iterator object itself"""
         self.node = self.head
         return self
 
     def __next__(self):
+        """Return the next item in the sequence. On reaching the end, and in subsequent calls, it must raise StopIteration"""
         if self.node is not None:
             node = self.node
+            # assign next node to self.node
             self.node = self.node.next
             return node
         else:
@@ -77,8 +81,12 @@ class LinkedList(object):
         #     length += 1
         #     node = node.next  # O(1) time to reassign variable
         # # Now list contains items from all nodes
-        for _ in self:
-            length += 1
+        # for _ in self:
+        #     length += 1
+
+        # alternative length calculation with items()
+        length = len(self.items())
+
         return length  # O(1) time to return list
 
     def append(self, item):
@@ -142,6 +150,23 @@ class LinkedList(object):
         if find_item is None:
             raise ValueError('Item not found: {}'.format(item))
         else:
+            for node in self:
+                if node == self.head:
+                    if node.data == item:
+                        self.head = node.next
+                        if node == self.tail:
+                            self.tail = previous_node
+                        break
+                    else:
+                        previous_node = node
+                else:
+                    if node.data == item:
+                        previous_node.next = node.next
+                        if node == self.tail:
+                            self.tail = previous_node
+                        break
+                    else:
+                        previous_node = node
             # while node is not None:  # Always n iterations because no early return
             #     if node == self.head:
             #         if node.data == item:
@@ -161,23 +186,6 @@ class LinkedList(object):
             #         else:
             #             previous_node = node
             #             node = node.next
-            for node in self:
-                if node == self.head:
-                    if node.data == item:
-                        self.head = node.next
-                        if node == self.tail:
-                            self.tail = previous_node
-                        break
-                    else:
-                        previous_node = node
-                else:
-                    if node.data == item:
-                        previous_node.next = node.next
-                        if node == self.tail:
-                            self.tail = previous_node
-                        break
-                    else:
-                        previous_node = node
 
     def replace(self, item, new_item):
         """Find a node whose data is item and replace it new item"""
