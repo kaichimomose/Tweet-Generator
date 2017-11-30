@@ -65,8 +65,8 @@ class LinkedList(object):
         #     node = node.next  # O(1) time to reassign variable
         # Now list contains items from all nodes
         for node in self: # O(n) time
-            items.append(node.data) # O(n) space
-        return items  # O(1) time to return list
+            items.append(node.data) # O(1) space
+        return items  # O(1) time to return list/O(n) space
 
     def is_empty(self): # O(1) time/space
         """Return a boolean indicating whether this linked list is empty."""
@@ -89,7 +89,7 @@ class LinkedList(object):
         # alternative length calculation with items()
         length = len(self.items()) # O(n) time/ O(1) space
 
-        return length  # O(1) time to return list
+        return length  # O(1) time
 
     def append(self, item): # O(1) time/space
         """Insert the given item at the tail of this linked list.
