@@ -51,7 +51,7 @@ class LinkedList(object):
         else:
             raise StopIteration
 
-    def items(self):
+    def items(self): # O(n) time/space
         """Return a list (dynamic array) of all items in this linked list.
         Best and worst case running time: O(n) for n items in the list (length)
         because we always need to loop through all n nodes to get each item."""
@@ -64,22 +64,22 @@ class LinkedList(object):
         #     # Skip to next node to advance forward in linked list
         #     node = node.next  # O(1) time to reassign variable
         # Now list contains items from all nodes
-        for node in self:
-            items.append(node.data)
+        for node in self: # O(n) time
+            items.append(node.data) # O(n) space
         return items  # O(1) time to return list
 
-    def is_empty(self):
+    def is_empty(self): # O(1) time/space
         """Return a boolean indicating whether this linked list is empty."""
-        return self.head is None
+        return self.head is None # O(1) time/space
 
-    def length(self):
+    def length(self): # O(n) time/O(1) space
         """Return the length of this linked list by traversing its nodes.
         TODO: Running time: O(n) Why and under what conditions?"""
         # TODO: Loop through all nodes and count one for each
-        length = 0
+        length = 0 # O(1) time/space
         # node = self.head  # O(1) time to assign new variable
         # # Loop until node is None, which is one node too far past tail
-        # while node is not None:  # Always n iterations because no early return
+        # while node is not None:  # O(n) time Always n iterations because no early return
         #     length += 1
         #     node = node.next  # O(1) time to reassign variable
         # # Now list contains items from all nodes
@@ -87,37 +87,37 @@ class LinkedList(object):
         #     length += 1
 
         # alternative length calculation with items()
-        length = len(self.items())
+        length = len(self.items()) # O(n) time/ O(1) space
 
         return length  # O(1) time to return list
 
-    def append(self, item):
+    def append(self, item): # O(1) time/space
         """Insert the given item at the tail of this linked list.
         TODO: Running time: O(1) Why and under what conditions?"""
         # TODO: Create new node to hold given item
-        node = Node(item)
+        node = Node(item) # O(1) time/space
         # TODO: Append node after tail, if it exists
         if self.tail is None:
-            self.head = node
-            self.tail = node
+            self.head = node # O(1) time/space
+            self.tail = node # O(1) time/space
         else:
-            self.tail.next = node
-            self.tail = node
+            self.tail.next = node # O(1) time/space
+            self.tail = node # O(1) time/space
 
-    def prepend(self, item):
+    def prepend(self, item): # O(1) time/space
         """Insert the given item at the head of this linked list.
         TODO: Running time: O(1) Why and under what conditions?"""
         # TODO: Create new node to hold given item
-        node = Node(item)
+        node = Node(item) # O(1) time/space
         # TODO: Prepend node before head, if it exists
         if self.is_empty():
-            self.head = node
-            self.tail = node
+            self.head = node # O(1) time/space
+            self.tail = node # O(1) time/space
         else:
-            node.next = self.head
-            self.head = node
+            node.next = self.head # O(1) time/space
+            self.head = node # O(1) time/space
 
-    def find(self, quality):
+    def find(self, quality): # O(n) time/O(1) space
         """Return an item from this linked list satisfying the given quality.
         TODO: Best case running time: O(???) Why and under what conditions?
         TODO: Worst case running time: O(???) Why and under what conditions?"""
@@ -132,12 +132,12 @@ class LinkedList(object):
         #         return item
         #     else:
         #         node = node.next
-        for node in self:
+        for node in self: # best case running time: O(1), worst case running time: O(n)
             if quality(node.data):
-                item = node.data
-                return item
+                item = node.data # O(1) time/space
+                return item # O(1) time/space
 
-    def delete(self, item):
+    def delete(self, item): # O(n) time/O(1) space
         """Delete the given item from this linked list, or raise ValueError.
         TODO: Best case running time: O(???) Why and under what conditions?
         TODO: Worst case running time: O(???) Why and under what conditions?"""
@@ -146,29 +146,29 @@ class LinkedList(object):
         # TODO: Otherwise raise error to tell user that delete has failed
         # Hint: raise ValueError('Item not found: {}'.format(item))
         node = self.head  # O(1) time to assign new variable
-        previous_node = None
+        previous_node = None # O(1) time/space
         # Loop until node is None, which is one node too far past tail
-        find_item = self.find(lambda item_: item_ == item)
+        find_item = self.find(lambda item_: item_ == item) # O(n) time/O(1) space
         if find_item is None:
-            raise ValueError('Item not found: {}'.format(item))
+            raise ValueError('Item not found: {}'.format(item)) # O(1) time/space
         else:
-            for node in self:
+            for node in self: # best case running time: O(1), worst case running time: O(n)
                 if node == self.head:
                     if node.data == item:
-                        self.head = node.next
+                        self.head = node.next # O(1) time/space
                         if node == self.tail:
-                            self.tail = previous_node
+                            self.tail = previous_node # O(1) time/space
                         break
                     else:
-                        previous_node = node
+                        previous_node = node # O(1) time/space
                 else:
                     if node.data == item:
-                        previous_node.next = node.next
+                        previous_node.next = node.next # O(1) time/space
                         if node == self.tail:
-                            self.tail = previous_node
+                            self.tail = previous_node # O(1) time/space
                         break
                     else:
-                        previous_node = node
+                        previous_node = node # O(1) time/space
             # while node is not None:  # Always n iterations because no early return
             #     if node == self.head:
             #         if node.data == item:
@@ -189,10 +189,10 @@ class LinkedList(object):
             #             previous_node = node
             #             node = node.next
 
-    def replace(self, item, new_item):
+    def replace(self, item, new_item): # O(n) time/O(1) space
         """Find a node whose data is item and replace it new item"""
-        node = self.head
-        find_item = self.find(lambda item_: item_ == item)
+        node = self.head # O(1) time/space
+        find_item = self.find(lambda item_: item_ == item) # O(n) time/O(1) space
         if find_item is None:
             raise ValueError('Item not found: {}'.format(item))
         else:
@@ -202,10 +202,10 @@ class LinkedList(object):
             #         break
             #     else:
             #         node = node.next
-            for node in self:
-                if node.data == item:
-                    node.data = new_item
-                    break
+            if node.data == item:
+                for node in self: # best case running time: O(1), worst case running time: O(n)
+                node.data = new_item # O(1) time/space
+                break
 
 
 def test_linked_list():
