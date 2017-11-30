@@ -40,7 +40,9 @@ class LinkedList(object):
         return self
 
     def __next__(self):
-        """Return the next item in the sequence. On reaching the end, and in subsequent calls, it must raise StopIteration"""
+        """Return the current node in the sequence.
+        On reaching the end, and in subsequent calls,
+        it must raise StopIteration"""
         if self.node is not None:
             node = self.node
             # assign next node to self.node
