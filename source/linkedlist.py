@@ -1,5 +1,5 @@
 #!python
-
+import time
 
 class Node(object):
 
@@ -204,25 +204,33 @@ class LinkedList(object):
             #         node = node.next
             if node.data == item:
                 for node in self: # best case running time: O(1), worst case running time: O(n)
-                node.data = new_item # O(1) time/space
-                break
+                    node.data = new_item # O(1) time/space
+                    break
 
 
 def test_linked_list():
     ll = LinkedList()
     print('list: {}'.format(ll))
 
+    start_append_time = time.time()
     print('\nTesting append:')
     for item in ['A', 'B', 'C']:
         print('append({!r})'.format(item))
         ll.append(item)
         print('list: {}'.format(ll))
+    end_append_time = time.time()
+    elapsed_time = end_append_time - start_append_time
+    print("elapsed time to append 3 items: {}".format(float(elapsed_time)))
 
     print('head: {}'.format(ll.head))
     print('tail: {}'.format(ll.tail))
     print('length: {}'.format(ll.length()))
 
+    start_replace_time = time.time()
     ll.replace('A', 'D')
+    end_replace_time = time.time()
+    elapsed_time = end_replace_time - start_replace_time
+    print("elapsed time to replace 1 item: {}".format(float(elapsed_time)))
     print('list: {}'.format(ll))
 
     print('head: {}'.format(ll.head))
@@ -239,11 +247,15 @@ def test_linked_list():
     # Enable this after implementing delete method
     delete_implemented = True
     if delete_implemented:
+        start_delete_time = time.time()
         print('\nTesting delete:')
         for item in ['B', 'C', 'A']:
             print('delete({!r})'.format(item))
             ll.delete(item)
             print('list: {}'.format(ll))
+        end_delete_time = time.time()
+        elapsed_time = end_delete_time - start_delete_time
+        print("elapsed time to delete 3 items: {}".format(float(elapsed_time)))
 
         print('head: {}'.format(ll.head))
         print('tail: {}'.format(ll.tail))

@@ -1,5 +1,5 @@
 #!python
-
+import time
 from linkedlist import LinkedList
 
 
@@ -108,11 +108,15 @@ class HashTable(object):
         # TODO: If found, return value associated with given key
         # TODO: Otherwise, raise error to tell user get failed
         # Hint: raise KeyError('Key not found: {}'.format(key))
-        if self.contains(key):
-            all_items = self.items() # O(n^2) time/O() space
-            for hash_key, value in all_items: # best case running time: O(1), worst case running time: O(n^2)
-                if hash_key == key:
-                    return value # O(1) time/O(1) space
+        index = self._bucket_index(key)
+        for bucket_key, bucket_value in self.buckets[index].items():
+            if bucket_key == key:
+                return bucket_value # O(1) time/O(1) space
+        # if self.contains(key):
+        #     all_items = self.items() # O(n^2) time/O() space
+        #     for hash_key, value in all_items: # best case running time: O(1), worst case running time: O(n^2)
+        #         if hash_key == key:
+        #             return value # O(1) time/O(1) space
         else:
             raise KeyError('Key not found: {}'.format(key))
 
@@ -153,28 +157,40 @@ def test_hash_table():
     ht = HashTable()
     print('hash table: {}'.format(ht))
 
+    start_set_time = time.time()
     print('\nTesting set:')
     for key, value in [('I', 1), ('V', 5), ('X', 10)]:
         print('set({!r}, {!r})'.format(key, value))
         ht.set(key, value)
         print('hash table: {}'.format(ht))
+    end_set_time = time.time()
+    elapsed_time = end_set_time - start_set_time
+    print("elapsed time to set 3 items: {}".format(float(elapsed_time)))
 
     print('\nTesting get:')
+    start_get_time = time.time()
     for key in ['I', 'V', 'X']:
         value = ht.get(key)
         print('get({!r}): {!r}'.format(key, value))
+    end_get_time = time.time()
+    elapsed_time = end_get_time - start_get_time
+    print("elapsed time to get 3 items: {}".format(float(elapsed_time)))
 
     print('contains({!r}): {}'.format('X', ht.contains('X')))
     print('length: {}'.format(ht.length()))
 
     # Enable this after implementing delete method
-    delete_implemented = False
+    delete_implemented = True
     if delete_implemented:
         print('\nTesting delete:')
+        start_delete_time = time.time()
         for key in ['I', 'V', 'X']:
             print('delete({!r})'.format(key))
             ht.delete(key)
             print('hash table: {}'.format(ht))
+        end_delete_time = time.time()
+        elapsed_time = end_delete_time - start_delete_time
+        print("elapsed time to delte 3 items: {}".format(float(elapsed_time)))
 
         print('contains(X): {}'.format(ht.contains('X')))
         print('length: {}'.format(ht.length()))
