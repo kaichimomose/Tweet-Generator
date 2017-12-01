@@ -185,6 +185,15 @@ class LinkedListTest(unittest.TestCase):
         assert ll.head is None  # No head
         assert ll.tail is None  # No tail
 
+    def test_replace_with_5_items(self):
+        ll = LinkedList(['A', 'B', 'C', 'D', 'E'])
+        assert ll.head.data == 'A'  # First item
+        assert ll.tail.data == 'E'  # Last item
+        ll.replace('A', 'F')
+        assert ll.head.data == 'F'  # New head
+        ll.replace('E', 'Y')
+        assert ll.tail.data == 'Y'  # Unchanged
+
     def test_delete_with_item_not_in_list(self):
         ll = LinkedList(['A', 'B', 'C'])
         # Delete should raise error if item not found

@@ -132,7 +132,7 @@ class LinkedList(object):
         #         return item
         #     else:
         #         node = node.next
-        for node in self: # best case running time: O(1), worst case running time: O(n)
+        for node in self: # best case running time: O(1) first item, worst case running time: O(n) last item or no exist
             if quality(node.data):
                 item = node.data # O(1) time/space
                 return item # O(1) time/space
@@ -202,8 +202,8 @@ class LinkedList(object):
             #         break
             #     else:
             #         node = node.next
-            if node.data == item:
-                for node in self: # best case running time: O(1), worst case running time: O(n)
+            for node in self: # best case running time: O(1), worst case running time: O(n)
+                if node.data == item:
                     node.data = new_item # O(1) time/space
                     break
 
