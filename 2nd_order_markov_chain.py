@@ -1,8 +1,11 @@
 from dictogram import Dictogram
+# from source/linkedlist import LinkedList
+
 import list_counts
 import sentence
 import sample
 import random
+import tokenize
 
 class Second_Marcov(object):
 
@@ -24,8 +27,22 @@ class Second_Marcov(object):
             elif i == len(word_list)-1:
                 words = (word_list[i-1], word_list[i])
                 word_after = "STOP"
+            elif ":" in word_list[i] and word_list[i][0].isupper():
+                word_after_dict["START"].append(word_list[i])
+                words = ("START", word_list[i])
+                word_after = word_list[i+1]
+                if words not in word_after_dict:
+                    word_after_dict[words] = [word_after]
+                else:
+                    word_after_dict[words].append(word_after)
+                words = (word_list[i-1], word_list[i])
+                word_after = word_list[i+1]
             else:
                 words = (word_list[i-1], word_list[i])
+                # if ":" in word_list[i+1] and word_list[i+1][0].isupper():
+                #     # word_after = "STOP"
+                # else:
+
                 word_after = word_list[i+1]
             #
             if words not in word_after_dict:
@@ -48,6 +65,7 @@ class Second_Marcov(object):
         states_lists_of_counts = {}
         for words in self.states:
             states_lists_of_counts[words] = list_counts.make_list_counts(self.states[words])
+        # print(states_lists_of_counts)
         return states_lists_of_counts
 
     def calculate_probabilities_dict(self):
@@ -74,11 +92,19 @@ class Second_Marcov(object):
     def pick_many_words(self):
         '''pick number_of_words words and return list of words, initial word is 'START' and stop picking words when picking 'STOP' '''
         picked_words = []
+        line = 1
+        maxline = 3
         words = "START"
-        while words[1] is not "STOP":
+        while line <= maxline:
             picked_word = self.pick_word(words)
             if picked_word is not "STOP":
-                picked_words.append(picked_word)
+                if words != "START" and ":" in picked_word and picked_word[0].isupper():
+                    line += 1
+                    if line <= maxline:
+                        picked_words.append("\n" + picked_word)
+                else:
+                    picked_words.append(picked_word)
+
             if words == "START":
                 second = "START"
             else:
@@ -87,8 +113,12 @@ class Second_Marcov(object):
         return picked_words
 
 def main():
-    fish_text = 'one fish two fish red fish blue fish'
-    word_list = fish_text.split()
+    # fish_text = 'one fish two fish red fish blue fish'
+    import sys
+    filename = sys.argv[1]
+    source = open(filename).read()
+    word_list = tokenize.tokenize(source)
+    # word_list = fish_text.split()
     second_markov = Second_Marcov(word_list)
     picked_words = second_markov.pick_many_words()
     made_sentence = sentence.make_sentence(picked_words)

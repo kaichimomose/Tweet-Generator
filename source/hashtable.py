@@ -174,10 +174,10 @@ class HashTable(object):
         else:
             raise KeyError('Key not found: {}'.format(key))
 
-    def clear(self):
-        """Remove all items from the Buckets"""
-        for bucket in self.buckets:
-            
+    # def clear(self):
+    #     """Remove all items from the Buckets"""
+    #     for bucket in self.buckets:
+
 
 
 def test_hash_table():
