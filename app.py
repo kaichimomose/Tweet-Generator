@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from dictogram import Dictogram
 import list_counts
 import sentence
 import sample
 import cleanup
+import twitter
 
 app = Flask(__name__)
 file_name = "source-text/1661.txt"
@@ -29,6 +30,13 @@ def generate_new_sentence():
     picked_words = sample.pick_many_words(histogram.tokens, histogram_list_counts, number_of_words)
     made_sentence = sentence.make_sentence(picked_words)
     return render_template("home.html", something=made_sentence)
+
+
+@app.route('/tweet', methods=['POST'])
+def tweet():
+    status = request.form['quote']
+    twitter.tweet(status)
+    return redirect('/')
 
 # Url Decoding
 # import urlparse
