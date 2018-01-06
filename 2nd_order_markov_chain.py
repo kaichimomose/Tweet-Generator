@@ -93,7 +93,7 @@ class Second_Marcov(object):
         '''pick number_of_words words and return list of words, initial word is 'START' and stop picking words when picking 'STOP' '''
         picked_words = []
         line = 1
-        maxline = 3
+        maxline = 1
         words = "START"
         while line <= maxline:
             picked_word = self.pick_word(words)
