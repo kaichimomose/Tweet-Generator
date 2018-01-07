@@ -5,7 +5,7 @@ import sentence
 # import sample
 # import cleanup
 import twitter
-import pdb
+# import pdb
 from second_order_markov_chain import Second_Marcov
 import tokenizing
 
@@ -41,11 +41,11 @@ def generate_new_sentence():
     return render_template("home.html", something=made_sentence)
 
 
-# @app.route('/tweet', methods=['POST'])
-# def tweet():
-#     status = request.form['something']
-#     twitter.tweet(status)
-#     return redirect('/')
+@app.route('/tweet', methods=['POST'])
+def tweet():
+    status = request.form['something']
+    twitter.tweet(status)
+    return redirect('/')
 
 # Url Decoding
 # import urlparse
