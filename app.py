@@ -10,7 +10,7 @@ from second_order_markov_chain import Second_Marcov
 import tokenizing
 
 app = Flask(__name__)
-file_name = "corpus.txt"  # "source-text/1661.txt"
+file_name = "source-text/1661.txt"  # "corpus.txt"
 # word = "the"
 # word_list = cleanup.clean_up_words_from_file(file_name)
 source = open(file_name).read()

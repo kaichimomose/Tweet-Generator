@@ -95,7 +95,7 @@ class Second_Marcov(object):
         line = 1
         maxline = 1
         words = "START"
-        while line <= maxline:
+        while len(picked_words) <= 10:
             picked_word = self.pick_word(words)
             if picked_word is not "STOP":
                 if words != "START" and ":" in picked_word and picked_word[0].isupper():
