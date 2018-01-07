@@ -2,6 +2,10 @@
 {% block content %}
 <div class='home'>
     <h1>Tweet Generator</h1>
-        <p>{{something | safe}}</p>
+        <blockquote>{{ something | safe }}</blockquote>
+        <form action="/tweet" method="post">
+          <input type="hidden" name="something" value="{{ something }}">
+          <button type="submit">Tweet this</button>
+        </form>
 </div>
 {% endblock %}

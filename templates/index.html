@@ -1,5 +1,8 @@
-<blockquote>{{ sentence }}</blockquote>
+{% extends "home.html" %}
+{% block sentence %}
+<blockquote>{{ somthing | safe }}</blockquote>
 <form action="/tweet" method="post">
-  <input type="hidden" name="sentence" value="{{ sentence }}">
+  <input type="hidden" name="somthing" value="{{ somthing }}">
   <button type="submit">Tweet this</button>
 </form>
+{% endblock %}

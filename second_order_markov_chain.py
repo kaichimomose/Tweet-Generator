@@ -5,7 +5,7 @@ import list_counts
 import sentence
 import sample
 import random
-import tokenize
+import tokenizing
 
 class Second_Marcov(object):
 
@@ -117,7 +117,7 @@ def main():
     import sys
     filename = sys.argv[1]
     source = open(filename).read()
-    word_list = tokenize.tokenize(source)
+    word_list = tokenizing.tokenize(source)
     # word_list = fish_text.split()
     second_markov = Second_Marcov(word_list)
     picked_words = second_markov.pick_many_words()
