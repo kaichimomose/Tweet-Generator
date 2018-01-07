@@ -44,7 +44,6 @@ def generate_new_sentence():
 @app.route('/tweet', methods=['POST'])
 def tweet():
     status = request.form['something']
-    pdb.set_trace()
     twitter.tweet(status)
     return redirect('/')
 
